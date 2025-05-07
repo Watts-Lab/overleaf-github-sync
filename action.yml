@@ -1,0 +1,25 @@
+name: "Overleaf → GitHub Sync Trigger"
+description: "On every push, POST to Overleaf’s github-sync/merge endpoint."
+branding:
+  icon: "sync"
+  color: "blue"
+
+inputs:
+  overleaf_cookie:
+    description: "Your overleaf_session2 cookie"
+    required: true
+  overleaf_project_id:
+    description: "Overleaf project ID"
+    required: true
+  overleaf_host:
+    description: "Overleaf host (defaults to www.overleaf.com)"
+    required: false
+    default: "www.overleaf.com"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.overleaf_cookie }}
+    - ${{ inputs.overleaf_project_id }}
+    - ${{ inputs.overleaf_host }}
